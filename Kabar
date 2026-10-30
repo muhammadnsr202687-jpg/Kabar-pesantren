@@ -1,0 +1,882 @@
+<!DOCTYPE html>
+<html lang="id" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kabar Pesantren - Portal Berita & Kajian Islami Terpercaya</title>
+    
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Google Fonts: Amiri (Arabic) & Plus Jakarta Sans (Modern Clean Body) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Amiri:ital,wght@0,400;0,700;1,400&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        emerald: {
+                            850: '#064e3b',
+                            950: '#022c22',
+                        },
+                        gold: {
+                            300: '#fde047',
+                            400: '#fbbf24',
+                            500: '#f59e0b',
+                            600: '#d97706',
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Plus Jakarta Sans', 'sans-serif'],
+                        arabic: ['Amiri', 'serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        .bg-islamic-pattern {
+            background-color: #022c22;
+            background-image: radial-gradient(#10b981 0.6px, transparent 0.6px), radial-gradient(#10b981 0.6px, #022c22 0.6px);
+            background-size: 24px 24px;
+            background-position: 0 0, 12px 12px;
+        }
+        .text-gradient-gold {
+            background: linear-gradient(135deg, #fef08a 0%, #f59e0b 50%, #d97706 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .custom-scrollbar::-webkit-scrollbar {
+            width: 6px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-track {
+            background: #f1f5f9;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            background: #10b981;
+            border-radius: 4px;
+        }
+    </style>
+</head>
+<body class="bg-slate-50 font-sans text-slate-800 antialiased selection:bg-emerald-600 selection:text-white min-h-screen flex flex-col justify-between">
+
+    <!-- TOP BAR (TANGGAL ISLAMI & UKURAN TEKS) -->
+    <div class="bg-emerald-950 text-emerald-100 text-xs py-2 px-4 border-b border-emerald-900">
+        <div class="max-w-7xl mx-auto flex flex-wrap justify-between items-center gap-2">
+            <div class="flex items-center gap-4">
+                <span class="flex items-center gap-1.5"><i class="fa-solid fa-calendar-day text-gold-400"></i> <span id="hijri-date">Sabtu, 31 Oktober 2026 M / 20 Jumadil Awal 1448 H</span></span>
+                <span class="hidden md:inline text-emerald-700">|</span>
+                <span class="hidden md:flex items-center gap-1.5 text-emerald-300"><i class="fa-solid fa-kaaba text-gold-400"></i> Portal Berita & Literasi Pesantren Nusantara</span>
+            </div>
+            
+            <div class="flex items-center gap-4">
+                <!-- Text Resizer Widget -->
+                <div class="flex items-center bg-emerald-900/80 rounded-lg px-2 py-0.5 border border-emerald-800 gap-2">
+                    <span class="text-[10px] text-emerald-300 font-semibold uppercase">Ukuran Teks:</span>
+                    <button onclick="changeFontSize(-1)" title="Kecilkan Teks" class="hover:text-gold-400 px-1 font-bold text-xs">A-</button>
+                    <button onclick="resetFontSize()" title="Reset Teks" class="hover:text-gold-400 px-1 text-xs">Reset</button>
+                    <button onclick="changeFontSize(1)" title="Besarkan Teks" class="hover:text-gold-400 px-1 font-bold text-sm">A+</button>
+                </div>
+                
+                <div class="flex items-center gap-2 text-sm">
+                    <a href="#" class="hover:text-gold-400 transition" title="Facebook"><i class="fa-brands fa-facebook"></i></a>
+                    <a href="#" class="hover:text-gold-400 transition" title="Instagram"><i class="fa-brands fa-instagram"></i></a>
+                    <a href="#" class="hover:text-gold-400 transition" title="YouTube"><i class="fa-brands fa-youtube"></i></a>
+                    <a href="#" class="hover:text-gold-400 transition" title="Telegram"><i class="fa-brands fa-telegram"></i></a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- MAIN NAVBAR -->
+    <header class="sticky top-0 z-40 bg-white/95 backdrop-blur-md shadow-sm border-b border-emerald-100">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-20">
+                <!-- Logo -->
+                <a href="#" class="flex items-center gap-3 group">
+                    <div class="w-11 h-11 bg-gradient-to-br from-emerald-700 to-emerald-900 rounded-2xl flex items-center justify-center text-gold-400 shadow-md border border-gold-400/40 group-hover:scale-105 transition">
+                        <i class="fa-solid fa-book-quran text-xl"></i>
+                    </div>
+                    <div>
+                        <span class="block text-xl font-extrabold text-emerald-950 tracking-tight leading-none">KABAR<span class="text-gold-600">PESANTREN</span></span>
+                        <span class="block text-[10px] font-bold text-emerald-700 tracking-widest uppercase mt-1">Media Media & Spirituel Santri</span>
+                    </div>
+                </a>
+
+                <!-- Nav Menu Desktop -->
+                <nav class="hidden lg:flex items-center space-x-6 font-semibold text-sm text-slate-700">
+                    <button onclick="filterCategory('semua')" class="nav-item active text-emerald-800 hover:text-emerald-600 transition py-2">Beranda</button>
+                    <button onclick="filterCategory('Berita Pondok')" class="nav-item hover:text-emerald-700 transition py-2">Berita Pondok</button>
+                    <button onclick="filterCategory('Kajian Fiqih')" class="nav-item hover:text-emerald-700 transition py-2">Kajian & Hikmah</button>
+                    <button onclick="filterCategory('Kegiatan Santri')" class="nav-item hover:text-emerald-700 transition py-2">Pendidikan & Santri</button>
+                    <button onclick="filterCategory('Opini Islami')" class="nav-item hover:text-emerald-700 transition py-2">Opini</button>
+                </nav>
+
+                <!-- Header Actions -->
+                <div class="flex items-center gap-3">
+                    <!-- Search Bar Toggle / Input -->
+                    <div class="relative hidden sm:block w-48 lg:w-64">
+                        <input type="text" id="search-input" onkeyup="handleSearch()" placeholder="Cari artikel / kajian..." class="w-full bg-slate-100 text-xs py-2 pl-9 pr-3 rounded-full border border-slate-200 focus:outline-none focus:ring-2 focus:ring-emerald-600 focus:bg-white transition">
+                        <i class="fa-solid fa-magnifying-glass absolute left-3 top-2.5 text-slate-400 text-xs"></i>
+                    </div>
+
+                    <!-- Tulis Artikel Button -->
+                    <button onclick="openAddModal()" class="bg-gradient-to-r from-emerald-700 to-emerald-800 hover:from-emerald-800 hover:to-emerald-950 text-white font-semibold text-xs px-4 py-2.5 rounded-full shadow-sm hover:shadow transition flex items-center gap-1.5 border border-gold-400/30">
+                        <i class="fa-solid fa-pen-to-square text-gold-400"></i>
+                        <span class="hidden sm:inline">Tulis Artikel</span>
+                    </button>
+
+                    <!-- Mobile Menu Button -->
+                    <button id="mobile-menu-btn" class="lg:hidden text-slate-700 hover:text-emerald-700 p-2 focus:outline-none">
+                        <i class="fa-solid fa-bars text-xl"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Mobile Drawer Menu -->
+        <div id="mobile-menu" class="hidden lg:hidden bg-white border-b border-emerald-100 px-4 py-4 space-y-2 shadow-lg">
+            <div class="mb-3">
+                <input type="text" id="mobile-search-input" onkeyup="handleMobileSearch()" placeholder="Cari artikel..." class="w-full bg-slate-100 text-xs py-2 pl-9 pr-3 rounded-full border border-slate-200 focus:outline-none">
+            </div>
+            <button onclick="filterCategory('semua')" class="block w-full text-left px-3 py-2 rounded-lg font-medium text-slate-700 hover:bg-emerald-50 hover:text-emerald-800">Beranda</button>
+            <button onclick="filterCategory('Berita Pondok')" class="block w-full text-left px-3 py-2 rounded-lg font-medium text-slate-700 hover:bg-emerald-50 hover:text-emerald-800">Berita Pondok</button>
+            <button onclick="filterCategory('Kajian Fiqih')" class="block w-full text-left px-3 py-2 rounded-lg font-medium text-slate-700 hover:bg-emerald-50 hover:text-emerald-800">Kajian & Hikmah</button>
+            <button onclick="filterCategory('Kegiatan Santri')" class="block w-full text-left px-3 py-2 rounded-lg font-medium text-slate-700 hover:bg-emerald-50 hover:text-emerald-800">Pendidikan & Santri</button>
+            <button onclick="filterCategory('Opini Islami')" class="block w-full text-left px-3 py-2 rounded-lg font-medium text-slate-700 hover:bg-emerald-50 hover:text-emerald-800">Opini Islami</button>
+        </div>
+    </header>
+
+    <!-- HIGHLIGHT / HERO ARTICLE SECTION -->
+    <section class="bg-islamic-pattern text-white py-10 lg:py-14 relative overflow-hidden">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <div class="flex items-center gap-2 mb-4">
+                <span class="bg-gold-500 text-slate-950 font-bold text-[11px] px-2.5 py-0.5 rounded uppercase tracking-wider">Headline Utama</span>
+                <span class="text-emerald-300 text-xs flex items-center gap-1"><i class="fa-solid fa-bolt text-gold-400"></i> Berita Terhangat Minggu Ini</span>
+            </div>
+
+            <!-- Featured Card -->
+            <div id="featured-article-container" class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center bg-emerald-900/80 border border-emerald-700/60 rounded-3xl p-6 lg:p-8 backdrop-blur-md shadow-2xl">
+                <!-- Javascript dynamic insert or static fallback -->
+            </div>
+        </div>
+    </section>
+
+    <!-- MAIN CONTENT CONTAINER -->
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 flex-grow">
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
+            
+            <!-- LEFT COLUMN: ARTICLE FEED (8 COLS) -->
+            <div class="lg:col-span-8 space-y-8">
+                
+                <!-- Category Filter Buttons Bar -->
+                <div class="flex items-center justify-between border-b border-slate-200 pb-4 overflow-x-auto gap-2 custom-scrollbar">
+                    <div class="flex items-center gap-2 shrink-0">
+                        <button onclick="filterCategory('semua')" class="cat-btn active bg-emerald-800 text-white font-medium text-xs px-4 py-2 rounded-full transition shadow-sm">Semua Artikel</button>
+                        <button onclick="filterCategory('Berita Pondok')" class="cat-btn bg-white hover:bg-slate-100 text-slate-700 font-medium text-xs px-4 py-2 rounded-full border border-slate-200 transition">Berita Pondok</button>
+                        <button onclick="filterCategory('Kajian Fiqih')" class="cat-btn bg-white hover:bg-slate-100 text-slate-700 font-medium text-xs px-4 py-2 rounded-full border border-slate-200 transition">Kajian Fiqih</button>
+                        <button onclick="filterCategory('Mutiara Hadits')" class="cat-btn bg-white hover:bg-slate-100 text-slate-700 font-medium text-xs px-4 py-2 rounded-full border border-slate-200 transition">Mutiara Hadits</button>
+                        <button onclick="filterCategory('Kegiatan Santri')" class="cat-btn bg-white hover:bg-slate-100 text-slate-700 font-medium text-xs px-4 py-2 rounded-full border border-slate-200 transition">Kegiatan Santri</button>
+                        <button onclick="filterCategory('Opini Islami')" class="cat-btn bg-white hover:bg-slate-100 text-slate-700 font-medium text-xs px-4 py-2 rounded-full border border-slate-200 transition">Opini Islami</button>
+                    </div>
+                </div>
+
+                <!-- Articles Grid Feed -->
+                <div id="articles-grid" class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <!-- Dynamic rendering by JS -->
+                </div>
+
+                <!-- Pagination Placeholder -->
+                <div class="flex justify-center pt-6">
+                    <button class="bg-white border border-emerald-600 text-emerald-800 hover:bg-emerald-700 hover:text-white font-semibold text-xs px-6 py-3 rounded-full transition shadow-sm flex items-center gap-2">
+                        <i class="fa-solid fa-rotate-right"></i> Tampilkan Artikel Lainnya
+                    </button>
+                </div>
+            </div>
+
+            <!-- RIGHT COLUMN: SIDEBAR WIDGETS (4 COLS) -->
+            <aside class="lg:col-span-4 space-y-8">
+                
+                <!-- WIDGET 1: JADWAL SHOLAT -->
+                <div class="bg-gradient-to-br from-emerald-900 to-emerald-950 text-white rounded-3xl p-6 shadow-xl border border-emerald-700/60 relative overflow-hidden">
+                    <div class="flex justify-between items-center mb-4 border-b border-emerald-800/80 pb-3">
+                        <h3 class="font-bold text-base text-gold-400 flex items-center gap-2">
+                            <i class="fa-solid fa-mosque"></i> Jadwal Sholat Hari Ini
+                        </h3>
+                        <span class="text-[10px] bg-emerald-800 text-emerald-200 px-2.5 py-0.5 rounded-full font-semibold">Padang & Sekitarnya</span>
+                    </div>
+                    
+                    <div class="grid grid-cols-5 gap-2 text-center text-xs">
+                        <div class="bg-emerald-800/50 p-2 rounded-xl border border-emerald-700/40">
+                            <div class="text-[10px] text-emerald-300">Subuh</div>
+                            <div class="font-bold text-gold-300 mt-1">04:48</div>
+                        </div>
+                        <div class="bg-emerald-800/50 p-2 rounded-xl border border-emerald-700/40">
+                            <div class="text-[10px] text-emerald-300">Dzuhur</div>
+                            <div class="font-bold text-gold-300 mt-1">12:09</div>
+                        </div>
+                        <div class="bg-emerald-800/50 p-2 rounded-xl border border-emerald-700/40 bg-emerald-700/70 border-gold-400/50 shadow">
+                            <div class="text-[10px] text-gold-200 font-bold">Ashar</div>
+                            <div class="font-extrabold text-white mt-1">15:26</div>
+                        </div>
+                        <div class="bg-emerald-800/50 p-2 rounded-xl border border-emerald-700/40">
+                            <div class="text-[10px] text-emerald-300">Maghrib</div>
+                            <div class="font-bold text-gold-300 mt-1">18:14</div>
+                        </div>
+                        <div class="bg-emerald-800/50 p-2 rounded-xl border border-emerald-700/40">
+                            <div class="text-[10px] text-emerald-300">Isya</div>
+                            <div class="font-bold text-gold-300 mt-1">19:24</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- WIDGET 2: MUTIARA HIKMAH / QUOTE ISLAMI -->
+                <div class="bg-white rounded-3xl p-6 shadow-sm border border-emerald-100 relative">
+                    <div class="w-10 h-10 bg-emerald-100 text-emerald-800 rounded-2xl flex items-center justify-center text-lg mb-4">
+                        <i class="fa-solid fa-quote-left"></i>
+                    </div>
+                    <p class="font-arabic text-xl text-emerald-950 leading-relaxed mb-3 text-right">
+                        مَنْ سَلَكَ طَرِيقًا يَلْتَمِسُ فِيهِ عِلْمًا سَهَّلَ اللَّهُ لَهُ بِهِ طَرِيقًا إِلَى الْجَنَّةِ
+                    </p>
+                    <blockquote class="text-xs text-slate-600 italic leading-relaxed mb-3">
+                        "Barangsiapa menempuh suatu jalan untuk mencari ilmu, maka Allah akan memudahkan baginya jalan menuju Surga."
+                    </blockquote>
+                    <span class="text-[11px] font-bold text-emerald-800">— HR. Muslim</span>
+                </div>
+
+                <!-- WIDGET 3: ARTIKEL POPULER / TRENDING -->
+                <div class="bg-white rounded-3xl p-6 shadow-sm border border-slate-200">
+                    <h3 class="font-bold text-base text-slate-900 border-b border-slate-100 pb-3 mb-4 flex items-center gap-2">
+                        <i class="fa-solid fa-fire text-gold-500"></i> Artikel Populer
+                    </h3>
+                    <div id="popular-articles-list" class="space-y-4">
+                        <!-- Rendered by JS -->
+                    </div>
+                </div>
+
+                <!-- WIDGET 4: BULETIN / NEWSLETTER -->
+                <div class="bg-slate-900 text-white rounded-3xl p-6 shadow-md relative overflow-hidden">
+                    <h3 class="font-bold text-base text-gold-400 mb-2">Langganan Buletin Jumat</h3>
+                    <p class="text-xs text-slate-300 mb-4 leading-relaxed">Dapatkan ringkasan khutbah, artikel pilihan, & kabar terkini pesantren langsung via WhatsApp / Email.</p>
+                    <form onsubmit="handleNewsletterSubmit(event)" class="space-y-2">
+                        <input type="email" required placeholder="Alamat email Anda..." class="w-full bg-slate-800 text-xs px-4 py-2.5 rounded-xl border border-slate-700 text-white focus:outline-none focus:ring-2 focus:ring-emerald-500">
+                        <button type="submit" class="w-full bg-emerald-700 hover:bg-emerald-600 text-white font-bold text-xs py-2.5 rounded-xl transition">
+                            Berlangganan Gratis
+                        </button>
+                    </form>
+                </div>
+
+            </aside>
+        </div>
+    </main>
+
+    <!-- ARTICLE READER MODAL (FULL INTERACTIVE READ EXPERIENCE) -->
+    <div id="article-modal" class="fixed inset-0 z-50 bg-slate-950/80 backdrop-blur-sm hidden flex items-center justify-center p-4 overflow-y-auto">
+        <div class="bg-white rounded-3xl shadow-2xl max-w-3xl w-full max-h-[90vh] overflow-y-auto custom-scrollbar relative">
+            <!-- Modal Close Button -->
+            <button onclick="closeModal()" class="sticky top-4 right-4 ml-auto bg-slate-100 hover:bg-slate-200 text-slate-700 w-10 h-10 rounded-full flex items-center justify-center transition z-20 shadow">
+                <i class="fa-solid fa-xmark text-lg"></i>
+            </button>
+
+            <div id="modal-content" class="p-6 md:p-10 -mt-10">
+                <!-- Javascript Content Injected Here -->
+            </div>
+        </div>
+    </div>
+
+    <!-- ADD NEW ARTICLE MODAL (FOR LOCAL CREATION) -->
+    <div id="add-modal" class="fixed inset-0 z-50 bg-slate-950/80 backdrop-blur-sm hidden flex items-center justify-center p-4 overflow-y-auto">
+        <div class="bg-white rounded-3xl shadow-2xl max-w-2xl w-full p-6 md:p-8 relative">
+            <button onclick="closeAddModal()" class="absolute top-4 right-4 bg-slate-100 hover:bg-slate-200 text-slate-700 w-9 h-9 rounded-full flex items-center justify-center transition">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+
+            <div class="flex items-center gap-3 mb-6 border-b pb-4">
+                <div class="w-10 h-10 bg-emerald-100 text-emerald-800 rounded-xl flex items-center justify-center text-lg">
+                    <i class="fa-solid fa-pen-nib"></i>
+                </div>
+                <div>
+                    <h3 class="font-bold text-lg text-slate-900">Tulis & Publikasikan Artikel Baru</h3>
+                    <p class="text-xs text-slate-500">Kirimkan rilis berita atau tulisan kajian Islami Anda.</p>
+                </div>
+            </div>
+
+            <form onsubmit="handleCreateArticle(event)" class="space-y-4">
+                <div>
+                    <label class="block text-xs font-semibold text-slate-700 mb-1">Judul Artikel *</label>
+                    <input type="text" id="new-title" required placeholder="Contoh: Keutamaan Menuntut Ilmu di Pesantren" class="w-full px-4 py-2.5 rounded-xl border border-slate-300 focus:ring-2 focus:ring-emerald-600 focus:outline-none text-xs">
+                </div>
+
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    <div>
+                        <label class="block text-xs font-semibold text-slate-700 mb-1">Kategori *</label>
+                        <select id="new-category" required class="w-full px-4 py-2.5 rounded-xl border border-slate-300 focus:ring-2 focus:ring-emerald-600 focus:outline-none text-xs">
+                            <option value="Berita Pondok">Berita Pondok</option>
+                            <option value="Kajian Fiqih">Kajian Fiqih</option>
+                            <option value="Mutiara Hadits">Mutiara Hadits</option>
+                            <option value="Kegiatan Santri">Kegiatan Santri</option>
+                            <option value="Opini Islami">Opini Islami</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label class="block text-xs font-semibold text-slate-700 mb-1">Penulis / Ustaz *</label>
+                        <input type="text" id="new-author" required placeholder="Contoh: Ust. Ahmad Fauzi, S.Pd.I" class="w-full px-4 py-2.5 rounded-xl border border-slate-300 focus:ring-2 focus:ring-emerald-600 focus:outline-none text-xs">
+                    </div>
+                </div>
+
+                <div>
+                    <label class="block text-xs font-semibold text-slate-700 mb-1">URL Gambar Sampul (Opsional)</label>
+                    <input type="url" id="new-image" placeholder="https://images.unsplash.com/..." class="w-full px-4 py-2.5 rounded-xl border border-slate-300 focus:ring-2 focus:ring-emerald-600 focus:outline-none text-xs">
+                </div>
+
+                <div>
+                    <label class="block text-xs font-semibold text-slate-700 mb-1">Isi Artikel Lengkap *</label>
+                    <textarea id="new-content" rows="6" required placeholder="Tuliskan isi artikel atau kajian secara mendalam..." class="w-full px-4 py-2.5 rounded-xl border border-slate-300 focus:ring-2 focus:ring-emerald-600 focus:outline-none text-xs"></textarea>
+                </div>
+
+                <button type="submit" class="w-full bg-emerald-800 hover:bg-emerald-900 text-white font-bold py-3 rounded-xl transition shadow flex items-center justify-center gap-2 text-xs">
+                    <i class="fa-solid fa-paper-plane text-gold-400"></i> Terbitkan Artikel
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <!-- FOOTER -->
+    <footer class="bg-emerald-950 text-white border-t border-emerald-900 mt-16">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8 mb-8">
+                <!-- Col 1 -->
+                <div class="space-y-3">
+                    <div class="flex items-center gap-3">
+                        <div class="w-9 h-9 bg-emerald-800 rounded-xl flex items-center justify-center text-gold-400 border border-gold-400/40">
+                            <i class="fa-solid fa-book-quran"></i>
+                        </div>
+                        <span class="font-extrabold text-base text-white tracking-tight">KABAR<span class="text-gold-500">PESANTREN</span></span>
+                    </div>
+                    <p class="text-xs text-emerald-200 leading-relaxed">
+                        Media informasi, khazanah literasi Islam, serta jendela berita seputar kehidupan santri dan pondok pesantren di Indonesia.
+                    </p>
+                </div>
+
+                <!-- Col 2 -->
+                <div>
+                    <h4 class="text-xs font-bold text-gold-400 mb-3 uppercase tracking-wider">Kategori Berita</h4>
+                    <ul class="space-y-2 text-xs text-emerald-200">
+                        <li><a href="#" onclick="filterCategory('Berita Pondok')" class="hover:text-white transition">Berita Pesantren</a></li>
+                        <li><a href="#" onclick="filterCategory('Kajian Fiqih')" class="hover:text-white transition">Kajian Fiqih & Akhlaq</a></li>
+                        <li><a href="#" onclick="filterCategory('Mutiara Hadits')" class="hover:text-white transition">Mutiara Hadits & Tafsir</a></li>
+                        <li><a href="#" onclick="filterCategory('Kegiatan Santri')" class="hover:text-white transition">Prestasi Santri</a></li>
+                    </ul>
+                </div>
+
+                <!-- Col 3 -->
+                <div>
+                    <h4 class="text-xs font-bold text-gold-400 mb-3 uppercase tracking-wider">Layanan Literasi</h4>
+                    <ul class="space-y-2 text-xs text-emerald-200">
+                        <li><a href="#add-modal" onclick="openAddModal()" class="hover:text-white transition">Kirim Naskah Artikel</a></li>
+                        <li><a href="#" class="hover:text-white transition">Arsip Khutbah Jumat</a></li>
+                        <li><a href="#" class="hover:text-white transition">Download Kitab Digital</a></li>
+                        <li><a href="#" class="hover:text-white transition">Jadwal Sholat & Imsakiyah</a></li>
+                    </ul>
+                </div>
+
+                <!-- Col 4 -->
+                <div>
+                    <h4 class="text-xs font-bold text-gold-400 mb-3 uppercase tracking-wider">Hubungi Redaksi</h4>
+                    <p class="text-xs text-emerald-200 mb-2">Jl. Pesantren No. 45, Kompleks Ma'had, Indonesia.</p>
+                    <p class="text-xs text-emerald-200 mb-3"><i class="fa-solid fa-envelope text-gold-400 mr-1.5"></i> redaksi@kabarpesantren.sch.id</p>
+                    <div class="flex space-x-2 text-sm">
+                        <a href="#" class="w-8 h-8 rounded-full bg-emerald-900 flex items-center justify-center text-emerald-200 hover:bg-gold-500 hover:text-slate-950 transition"><i class="fa-brands fa-facebook-f"></i></a>
+                        <a href="#" class="w-8 h-8 rounded-full bg-emerald-900 flex items-center justify-center text-emerald-200 hover:bg-gold-500 hover:text-slate-950 transition"><i class="fa-brands fa-instagram"></i></a>
+                        <a href="#" class="w-8 h-8 rounded-full bg-emerald-900 flex items-center justify-center text-emerald-200 hover:bg-gold-500 hover:text-slate-950 transition"><i class="fa-brands fa-youtube"></i></a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pt-6 border-t border-emerald-900 text-center text-xs text-emerald-400 flex flex-col sm:flex-row justify-between items-center gap-3">
+                <p>&copy; 2026 Kabar Pesantren. Portal Literasi & Berita Islami.</p>
+                <p class="font-arabic text-sm text-gold-400">نَفَعَنَا اللهُ وَإِيَّاكُمْ بِالْعُلُومِ النَّافِعَةِ</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JAVASCRIPT APP LOGIC -->
+    <script>
+        // INITIAL ARTICLES DATA DUMMY
+        let articles = [
+            {
+                id: 1,
+                title: "Santri Ponpes Ahmad Naqsyabandiyah Raih Juara 1 Musabaqah Tilawatil Qur'an Nasional",
+                category: "Kegiatan Santri",
+                author: "Ust. Hilman Syah",
+                date: "30 Oktober 2026",
+                readTime: "3 menit",
+                featured: true,
+                views: 1240,
+                image: "https://images.unsplash.com/photo-1585036156171-384164a8c675?auto=format&fit=crop&q=80&w=800",
+                snippet: "Prestasi membanggakan kembali diraih oleh santri terbaik kita dalam ajang MTQ Tingkat Nasional yang diselenggarakan minggu ini...",
+                content: `
+                    <p class="mb-4">Prestasi membanggakan kembali diukir oleh santri dari Pondok Pesantren Ahmad Naqsyabandiyah. Dalam gelaran Musabaqah Tilawatil Qur'an (MTQ) Tingkat Nasional tahun 2026, ananda Muhammad Farhan berhasil menyabet Juara 1 pada cabang Fahmil Qur'an dan Tilawah Remaja.</p>
+                    <p class="mb-4">Perjuangan intensif selama 6 bulan berlatih di bawah bimbingan para guru dan muqri pesantren membuahkan hasil yang manis. Pengasuh pondok menyampaikan rasa syukur yang mendalam atas pencapaian ini.</p>
+                    <blockquote class="bg-emerald-50 border-l-4 border-emerald-700 p-4 rounded-r-xl italic my-4 text-emerald-900 font-serif">
+                        "Kemenangan ini bukan sekadar piala, tetapi bukti bahwa dedikasi santri dalam mencintai dan mengkaji Al-Qur'an mendapat keberkahan dari Allah SWT."
+                    </blockquote>
+                    <p class="mb-4">Diharapkan pencapaian ini dapat menjadi pemantik semangat bagi ribuan santri lainnya untuk terus meningkatkan hafalan dan pemahaman isi kandungan Al-Qur'an.</p>
+                `,
+                comments: [
+                    { name: "Ahmad Zaki", text: "Masya Allah, selamat untuk ananda Farhan! Semoga menginspirasi santri lainnya.", date: "30 Okt 2026" },
+                    { name: "Siti Rahmah", text: "Alhamdulillah, barakallah fiik.", date: "31 Okt 2026" }
+                ]
+            },
+            {
+                id: 2,
+                title: "Memahami Makna Khusyu' dalam Sholat Menurut Imām al-Ghazālī",
+                category: "Kajian Fiqih",
+                author: "KH. Syamsuddin Harun",
+                date: "29 Oktober 2026",
+                readTime: "5 menit",
+                featured: false,
+                views: 980,
+                image: "https://images.unsplash.com/photo-1542816417-0983cbe32138?auto=format&fit=crop&q=80&w=800",
+                snippet: "Sholat merupakan tiang agama. Namun seringkali hati kita mengembara saat menjalankan ibadah mulia ini. Bagaimana solusinya?",
+                content: `
+                    <p class="mb-4">Dalam kitab *Ihyā' 'Ulūm al-Dīn*, Imām al-Ghazālī menjelaskan bahwa khusyu' adalah ruh dari ibadah sholat. Tanpa kehadiran hati (hudhurul qalb), sholat yang dilakukan ibarat jasad tanpa nyawa.</p>
+                    <p class="mb-4">Ada 6 komponen penting untuk meraih khusyu' dalam sholat:</p>
+                    <ul class="list-disc pl-5 mb-4 space-y-1">
+                        <li><strong>Hudurul Qalb:</strong> Mengosongkan pikiran dari urusan duniawi.</li>
+                        <li><strong>Tafahhum:</strong> Memahami arti bacaan ayat dan dzikir sholat.</li>
+                        <li><strong>Ta'dzim:</strong> Rasa agung dan takut akan kebesaran Allah.</li>
+                        <li><strong>Raja':</strong> Harapan agar amalan diterima.</li>
+                    </ul>
+                    <p>Mari kita tingkatkan kualitas sholat harian kita dengan selalu mengingat bahwa kita sedang menghadap Sang Pencipta alam semesta.</p>
+                `,
+                comments: [
+                    { name: "Hasanuddin", text: "Kajian yang sangat menyejukkan hati. Terima kasih Yai.", date: "29 Okt 2026" }
+                ]
+            },
+            {
+                id: 3,
+                title: "Peran Santri dalam Menghadapi Era Digital & Teknologi AI",
+                category: "Opini Islami",
+                author: "Dr. Rahmat Hidayat, M.A.",
+                date: "28 Oktober 2026",
+                readTime: "4 menit",
+                featured: false,
+                views: 750,
+                image: "https://images.unsplash.com/photo-1516321318423-f06f85e504b3?auto=format&fit=crop&q=80&w=800",
+                snippet: "Santri zaman kini tidak boleh gagap teknologi. Literasi digital yang kokoh berbasis pondasi akhlaq adalah kunci utama.",
+                content: `
+                    <p class="mb-4">Dunia modern berkembang pesat dengan hadirnya kecerdasan buatan (AI) dan media sosial. Santri masa kini dituntut tidak hanya mahir membaca kitab turats, tetapi juga adaptif terhadap teknologi digital.</p>
+                    <p class="mb-4">Dakwah di era sekarang membutuhkan kontingen santri yang mampu memproduksi konten Islami yang sejuk, mencerahkan, dan berbasis data shahih untuk membendung arus hoaks dan narasi pemecah belah.</p>
+                `,
+                comments: []
+            },
+            {
+                id: 4,
+                title: "Keutamaan Bersholawat di Hari Jumat: Pendulang Syafa'at",
+                category: "Mutiara Hadits",
+                author: "Ustaz Abdullah Rifa'i",
+                date: "27 Oktober 2026",
+                readTime: "3 menit",
+                featured: false,
+                views: 1100,
+                image: "https://images.unsplash.com/photo-1564769625905-50e93615e769?auto=format&fit=crop&q=80&w=800",
+                snippet: "Rasulullah SAW bersabda: Perbanyaklah membaca sholawat kepadaku pada hari Jumat dan malam Jumat...",
+                content: `
+                    <p class="mb-4">Hari Jumat adalah *Sayyidul Ayyam* (pemimpin hari-hari). Salah satu amalan sunnah yang sangat dianjurkan adalah memperbanyak sholawat kepada Baginda Nabi Muhammad SAW.</p>
+                    <p class="mb-4">Setiap sholawat yang kita ucapkan akan disampaikan langsung kepada beliau dan menjadi tabungan syafa'at di hari kiamat kelak.</p>
+                `,
+                comments: []
+            },
+            {
+                id: 5,
+                title: "Kunjungan Silaturahmi Tokoh Ulama Al-Azhar Mesir ke Pondok Pesantren",
+                category: "Berita Pondok",
+                author: "Humas Pesantren",
+                date: "25 Oktober 2026",
+                readTime: "4 menit",
+                featured: false,
+                views: 890,
+                image: "https://images.unsplash.com/photo-1542816417-0983cbe32138?auto=format&fit=crop&q=80&w=800",
+                snippet: "Pesantren menyambut kedatangan Syaikh dari Universitas Al-Azhar Kairo dalam rangka ospek keilmuan & pembukaan sanad kitab.",
+                content: `
+                    <p class="mb-4">Suasana khidmat menyelimuti aula utama pesantren saat menerima kunjungan silaturahmi ulama terkemuka dari Universitas Al-Azhar, Kairo, Mesir. Acara diisi dengan ijazah sanad kitab Al-Arba'in An-Nawawiyah kepada ratusan santri senior.</p>
+                `,
+                comments: []
+            }
+        ];
+
+        let activeCategory = 'semua';
+        let fontSizeLevel = 0; // -1, 0, 1, 2
+
+        // RENDER UPON LOAD
+        window.onload = function() {
+            renderFeatured();
+            renderArticlesFeed();
+            renderPopularWidget();
+        };
+
+        // RENDER FEATURED HEADLINE
+        function renderFeatured() {
+            const featured = articles.find(a => a.featured) || articles[0];
+            const container = document.getElementById('featured-article-container');
+            
+            container.innerHTML = `
+                <div class="lg:col-span-7 space-y-4">
+                    <div class="flex items-center gap-3 text-xs text-emerald-200">
+                        <span class="bg-emerald-800 border border-emerald-600 text-gold-300 font-semibold px-2.5 py-0.5 rounded-full">${featured.category}</span>
+                        <span><i class="fa-solid fa-user text-gold-400 mr-1"></i> ${featured.author}</span>
+                        <span><i class="fa-solid fa-clock text-gold-400 mr-1"></i> ${featured.date}</span>
+                    </div>
+                    
+                    <h2 onclick="openArticleModal(${featured.id})" class="text-2xl sm:text-3xl font-extrabold text-white hover:text-gold-300 transition cursor-pointer leading-tight">
+                        ${featured.title}
+                    </h2>
+                    
+                    <p class="text-emerald-100 text-xs sm:text-sm line-clamp-3 leading-relaxed">
+                        ${featured.snippet}
+                    </p>
+
+                    <div class="pt-2 flex items-center gap-4">
+                        <button onclick="openArticleModal(${featured.id})" class="bg-gradient-to-r from-gold-500 to-gold-600 hover:from-gold-600 hover:to-gold-700 text-slate-950 font-bold text-xs px-6 py-2.5 rounded-full transition shadow flex items-center gap-2">
+                            Baca Selengkapnya <i class="fa-solid fa-arrow-right"></i>
+                        </button>
+                        <span class="text-xs text-emerald-300"><i class="fa-solid fa-eye text-gold-400 mr-1"></i> ${featured.views} pembaca</span>
+                    </div>
+                </div>
+
+                <div class="lg:col-span-5">
+                    <div onclick="openArticleModal(${featured.id})" class="rounded-2xl overflow-hidden shadow-xl border-2 border-emerald-600/50 cursor-pointer group relative">
+                        <img src="${featured.image}" alt="${featured.title}" class="w-full h-56 sm:h-64 object-cover group-hover:scale-105 transition duration-500" onerror="this.src='https://placehold.co/600x400/022c22/fbbf24?text=Kabar+Pesantren'">
+                        <div class="absolute inset-0 bg-emerald-950/20 group-hover:bg-transparent transition"></div>
+                    </div>
+                </div>
+            `;
+        }
+
+        // RENDER MAIN ARTICLES GRID
+        function renderArticlesFeed(data = articles) {
+            const grid = document.getElementById('articles-grid');
+            
+            let filtered = data;
+            if (activeCategory !== 'semua') {
+                filtered = data.filter(a => a.category.toLowerCase() === activeCategory.toLowerCase());
+            }
+
+            if (filtered.length === 0) {
+                grid.innerHTML = `
+                    <div class="col-span-full text-center py-12 bg-white rounded-3xl border border-slate-200">
+                        <i class="fa-solid fa-folder-open text-4xl text-slate-300 mb-3"></i>
+                        <p class="text-slate-600 font-semibold text-sm">Tidak ada artikel ditemukan untuk kategori ini.</p>
+                    </div>
+                `;
+                return;
+            }
+
+            grid.innerHTML = filtered.map(item => `
+                <article class="bg-white rounded-3xl overflow-hidden border border-slate-200 shadow-sm hover:shadow-xl hover:border-emerald-300 transition flex flex-col justify-between group">
+                    <div>
+                        <!-- Thumbnail -->
+                        <div class="relative h-48 overflow-hidden cursor-pointer" onclick="openArticleModal(${item.id})">
+                            <img src="${item.image}" alt="${item.title}" class="w-full h-full object-cover group-hover:scale-105 transition duration-500" onerror="this.src='https://placehold.co/600x400/064e3b/ffffff?text=Berita+Pesantren'">
+                            <span class="absolute top-3 left-3 bg-emerald-900/90 backdrop-blur-sm text-gold-300 text-[10px] font-bold px-2.5 py-1 rounded-full border border-gold-400/30">
+                                ${item.category}
+                            </span>
+                        </div>
+
+                        <!-- Card Body -->
+                        <div class="p-5 space-y-3">
+                            <div class="flex items-center gap-3 text-[11px] text-slate-400">
+                                <span><i class="fa-solid fa-user text-emerald-600 mr-1"></i> ${item.author}</span>
+                                <span>•</span>
+                                <span><i class="fa-solid fa-calendar text-emerald-600 mr-1"></i> ${item.date}</span>
+                            </div>
+
+                            <h3 onclick="openArticleModal(${item.id})" class="font-bold text-slate-900 text-base group-hover:text-emerald-700 transition line-clamp-2 cursor-pointer leading-snug">
+                                ${item.title}
+                            </h3>
+
+                            <p class="text-slate-600 text-xs line-clamp-2 leading-relaxed">
+                                ${item.snippet}
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- Card Footer -->
+                    <div class="px-5 pb-5 pt-2 border-t border-slate-100 flex items-center justify-between text-xs">
+                        <span class="text-slate-400 text-[11px]"><i class="fa-solid fa-clock text-emerald-600 mr-1"></i> ${item.readTime}</span>
+                        <button onclick="openArticleModal(${item.id})" class="font-bold text-emerald-800 hover:text-emerald-600 flex items-center gap-1 group-hover:translate-x-0.5 transition">
+                            Baca <i class="fa-solid fa-chevron-right text-[10px]"></i>
+                        </button>
+                    </div>
+                </article>
+            `).join('');
+        }
+
+        // RENDER POPULAR WIDGET
+        function renderPopularWidget() {
+            const popularContainer = document.getElementById('popular-articles-list');
+            const sorted = [...articles].sort((a, b) => b.views - a.views).slice(0, 4);
+
+            popularContainer.innerHTML = sorted.map((item, index) => `
+                <div onclick="openArticleModal(${item.id})" class="flex items-center gap-3 cursor-pointer group">
+                    <span class="w-7 h-7 rounded-full bg-emerald-100 text-emerald-800 font-extrabold text-xs flex items-center justify-center shrink-0 group-hover:bg-emerald-700 group-hover:text-white transition">
+                        ${index + 1}
+                    </span>
+                    <div>
+                        <h4 class="text-xs font-bold text-slate-800 group-hover:text-emerald-700 transition line-clamp-2 leading-snug">
+                            ${item.title}
+                        </h4>
+                        <span class="text-[10px] text-slate-400 mt-0.5 block">${item.views} pembaca</span>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        // CATEGORY FILTER FUNCTION
+        function filterCategory(cat) {
+            activeCategory = cat;
+            
+            // update active tab styling
+            document.querySelectorAll('.cat-btn').forEach(btn => {
+                if (btn.innerText.toLowerCase().includes(cat.toLowerCase()) || (cat === 'semua' && btn.innerText.includes('Semua'))) {
+                    btn.className = 'cat-btn active bg-emerald-800 text-white font-medium text-xs px-4 py-2 rounded-full transition shadow-sm';
+                } else {
+                    btn.className = 'cat-btn bg-white hover:bg-slate-100 text-slate-700 font-medium text-xs px-4 py-2 rounded-full border border-slate-200 transition';
+                }
+            });
+
+            renderArticlesFeed();
+        }
+
+        // SEARCH FUNCTIONALITY
+        function handleSearch() {
+            const query = document.getElementById('search-input').value.toLowerCase();
+            const filtered = articles.filter(a => 
+                a.title.toLowerCase().includes(query) || 
+                a.snippet.toLowerCase().includes(query) ||
+                a.category.toLowerCase().includes(query)
+            );
+            renderArticlesFeed(filtered);
+        }
+
+        function handleMobileSearch() {
+            const query = document.getElementById('mobile-search-input').value.toLowerCase();
+            const filtered = articles.filter(a => 
+                a.title.toLowerCase().includes(query) || 
+                a.snippet.toLowerCase().includes(query)
+            );
+            renderArticlesFeed(filtered);
+        }
+
+        // OPEN ARTICLE MODAL & READER
+        function openArticleModal(id) {
+            const article = articles.find(a => a.id === id);
+            if (!article) return;
+
+            article.views += 1;
+            renderPopularWidget();
+
+            const modal = document.getElementById('article-modal');
+            const content = document.getElementById('modal-content');
+
+            content.innerHTML = `
+                <div class="space-y-4">
+                    <span class="bg-emerald-100 text-emerald-800 text-xs font-bold px-3 py-1 rounded-full inline-block">
+                        ${article.category}
+                    </span>
+
+                    <h1 class="text-2xl md:text-3xl font-extrabold text-slate-900 leading-tight">
+                        ${article.title}
+                    </h1>
+
+                    <div class="flex items-center justify-between text-xs text-slate-500 border-b border-slate-100 pb-4">
+                        <div class="flex items-center gap-3">
+                            <span><i class="fa-solid fa-user text-emerald-700"></i> ${article.author}</span>
+                            <span>•</span>
+                            <span><i class="fa-solid fa-calendar text-emerald-700"></i> ${article.date}</span>
+                        </div>
+                        <span><i class="fa-solid fa-eye text-emerald-700"></i> ${article.views} views</span>
+                    </div>
+
+                    <div class="rounded-2xl overflow-hidden h-64 md:h-80 my-4 shadow-md">
+                        <img src="${article.image}" alt="${article.title}" class="w-full h-full object-cover">
+                    </div>
+
+                    <!-- Formatted Reader Text -->
+                    <div class="article-body text-slate-700 text-sm md:text-base leading-relaxed space-y-4 font-sans">
+                        ${article.content}
+                    </div>
+
+                    <!-- Social Share Buttons -->
+                    <div class="pt-6 border-t border-slate-200">
+                        <span class="text-xs font-bold text-slate-700 block mb-2">Bagikan Artikel Ini:</span>
+                        <div class="flex items-center gap-2">
+                            <button onclick="shareArticle('wa', '${article.title}')" class="bg-emerald-600 hover:bg-emerald-700 text-white text-xs px-4 py-2 rounded-xl transition flex items-center gap-2">
+                                <i class="fa-brands fa-whatsapp text-sm"></i> WhatsApp
+                            </button>
+                            <button onclick="shareArticle('fb', '${article.title}')" class="bg-blue-600 hover:bg-blue-700 text-white text-xs px-4 py-2 rounded-xl transition flex items-center gap-2">
+                                <i class="fa-brands fa-facebook text-sm"></i> Facebook
+                            </button>
+                            <button onclick="shareArticle('copy', '${article.title}')" class="bg-slate-200 hover:bg-slate-300 text-slate-700 text-xs px-4 py-2 rounded-xl transition flex items-center gap-2">
+                                <i class="fa-solid fa-link text-sm"></i> Salin Link
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Comments Section -->
+                    <div class="pt-8 border-t border-slate-200">
+                        <h4 class="font-bold text-slate-900 text-base mb-4 flex items-center gap-2">
+                            <i class="fa-solid fa-comments text-emerald-700"></i> Komentar (${article.comments.length})
+                        </h4>
+
+                        <!-- Form Comment -->
+                        <form onsubmit="handleAddComment(event, ${article.id})" class="mb-6 space-y-2">
+                            <input type="text" id="comment-name" required placeholder="Nama Anda" class="w-full text-xs px-3 py-2 rounded-xl border border-slate-300 focus:outline-none focus:ring-2 focus:ring-emerald-600">
+                            <textarea id="comment-text" required rows="2" placeholder="Tulis komentar atau tanggapan Islami..." class="w-full text-xs px-3 py-2 rounded-xl border border-slate-300 focus:outline-none focus:ring-2 focus:ring-emerald-600"></textarea>
+                            <button type="submit" class="bg-emerald-800 hover:bg-emerald-900 text-white font-bold text-xs px-4 py-2 rounded-xl transition">
+                                Kirim Komentar
+                            </button>
+                        </form>
+
+                        <!-- List Comments -->
+                        <div class="space-y-3">
+                            ${article.comments.map(c => `
+                                <div class="bg-slate-50 p-3 rounded-xl border border-slate-200">
+                                    <div class="flex justify-between items-center mb-1">
+                                        <span class="font-bold text-xs text-emerald-900">${c.name}</span>
+                                        <span class="text-[10px] text-slate-400">${c.date}</span>
+                                    </div>
+                                    <p class="text-xs text-slate-600 leading-relaxed">${c.text}</p>
+                                </div>
+                            `).join('')}
+                        </div>
+                    </div>
+                </div>
+            `;
+
+            modal.classList.remove('hidden');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeModal() {
+            document.getElementById('article-modal').classList.add('hidden');
+            document.body.style.overflow = 'auto';
+        }
+
+        // ADD NEW ARTICLE CREATION LOGIC
+        function openAddModal() {
+            document.getElementById('add-modal').classList.remove('hidden');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeAddModal() {
+            document.getElementById('add-modal').classList.add('hidden');
+            document.body.style.overflow = 'auto';
+        }
+
+        function handleCreateArticle(e) {
+            e.preventDefault();
+            const title = document.getElementById('new-title').value;
+            const category = document.getElementById('new-category').value;
+            const author = document.getElementById('new-author').value;
+            const image = document.getElementById('new-image').value || 'https://images.unsplash.com/photo-1542816417-0983cbe32138?auto=format&fit=crop&q=80&w=800';
+            const contentText = document.getElementById('new-content').value;
+
+            const newObj = {
+                id: Date.now(),
+                title: title,
+                category: category,
+                author: author,
+                date: "Hari Ini",
+                readTime: "3 menit",
+                featured: false,
+                views: 1,
+                image: image,
+                snippet: contentText.substring(0, 120) + "...",
+                content: `<p class="mb-4">${contentText}</p>`,
+                comments: []
+            };
+
+            articles.unshift(newObj);
+            renderArticlesFeed();
+            closeAddModal();
+            e.target.reset();
+
+            alert('Artikel baru berhasil diterbitkan!');
+        }
+
+        // ADD COMMENT LOGIC
+        function handleAddComment(e, articleId) {
+            e.preventDefault();
+            const name = document.getElementById('comment-name').value;
+            const text = document.getElementById('comment-text').value;
+
+            const article = articles.find(a => a.id === articleId);
+            if (article) {
+                article.comments.unshift({
+                    name: name,
+                    text: text,
+                    date: "Baru saja"
+                });
+                openArticleModal(articleId); // refresh modal view
+            }
+        }
+
+        // SHARE ACTION
+        function shareArticle(platform, title) {
+            if (platform === 'wa') {
+                window.open(`https://api.whatsapp.com/send?text=${encodeURIComponent('Baca artikel menarik: ' + title)}`, '_blank');
+            } else if (platform === 'fb') {
+                window.open(`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(window.location.href)}`, '_blank');
+            } else {
+                navigator.clipboard.writeText(window.location.href);
+                alert('Tautan artikel berhasil disalin ke clipboard!');
+            }
+        }
+
+        // FONT SIZE RESIZER LOGIC
+        function changeFontSize(direction) {
+            const articleBody = document.querySelectorAll('.article-body');
+            fontSizeLevel += direction;
+            if (fontSizeLevel > 2) fontSizeLevel = 2;
+            if (fontSizeLevel < -1) fontSizeLevel = -1;
+
+            let sizeClass = 'text-sm';
+            if (fontSizeLevel === 1) sizeClass = 'text-base';
+            if (fontSizeLevel === 2) sizeClass = 'text-lg';
+            if (fontSizeLevel === -1) sizeClass = 'text-xs';
+
+            articleBody.forEach(el => {
+                el.className = `article-body text-slate-700 leading-relaxed space-y-4 font-sans ${sizeClass}`;
+            });
+        }
+
+        function resetFontSize() {
+            fontSizeLevel = 0;
+            const articleBody = document.querySelectorAll('.article-body');
+            articleBody.forEach(el => {
+                el.className = 'article-body text-slate-700 leading-relaxed space-y-4 font-sans text-sm md:text-base';
+            });
+        }
+
+        // NEWSLETTER SUBMIT
+        function handleNewsletterSubmit(e) {
+            e.preventDefault();
+            alert('Jazakallah Khairan! Email Anda berhasil terdaftar pada Buletin Jumat.');
+            e.target.reset();
+        }
+
+        // MOBILE DRAWER MENU TOGGLE
+        document.getElementById('mobile-menu-btn').addEventListener('click', () => {
+            document.getElementById('mobile-menu').classList.toggle('hidden');
+        });
+    </script>
+</body>
+</html>
